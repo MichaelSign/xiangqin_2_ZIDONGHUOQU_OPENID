@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../../favicon.ico">
+        <title>meethere</title>
+        <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+        <link href="navbar-static-top.css" rel="stylesheet">
+        <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+        <style>
+                #wrap {
+                      min-height: 100%;
+                      background-color: none;
+                      height: auto !important;
+                      margin: 0px auto -309px;
+                      padding: 0px 0px 309px;
+                  }
+                  h1{
+                  
+                    text-align:center;
+                    font-size: 50px;
+                  }
+                  p.font{
+                      font-size: 30px;
+                      font-family: "Courier New", Courier, monospace;
+                  }
+                  div.img1
+                  {
+                          height: auto !important;
+                          height: :344px;
+                          min-height: 344px
+                      
+                          text-align: center;
+                  }
+                  
+                  div.font{
+                    font-size: 20px;
+                    font-family: "Courier New", Courier, monospace;
+                  }
+
+                
+                  body
+                  {
+                        background-image: url(/static/img/abj2.jpg);
+              
+                        background-size: cover;
+                        background-position: center;
+                  }
+                  button.font{
+                      font-size: 50px;
+                      background-color: #FF0000;
+
+                  }
+
+        </style>
+    </head>
+
+    <body>
+                      <img src="/static/images/quit.jpg" class="img-responsive" alt="" width=50px>
+                     <h1><b style="color:#FF0000">meethere</b>
+                            <i>
+                                     <sub>goodlack</sub>
+                            </i>
+                    </h1>
+                    <br>
+                    <br>
+                      <div class="container">
+                              <nav class="navbar navbar-inverse">
+                                
+                                          <div class="navbar-header">
+                                                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                                                <span class="sr-only">Toggle navigation</span>
+                                                                <span class="icon-bar"></span>
+                                                                <span class="icon-bar"></span>
+                                                                <span class="icon-bar"></span>
+                                                      </button>
+                                                      <a class="navbar-brand" href="#"><b>meerhere1</b></a>
+                                          </div>
+                                          <div id="navbar" class="navbar-collapse collapse">
+                                                  <ul class="nav navbar-nav">
+                                                          <li class="active"><a href="http://www.baidu.com">百度</a></li>
+                                                         <li><a href="http://www.itcast.com">itcast</a></li>
+                                                          <li><a href="http://www.sina.com">sina</a></li>
+                                                          <li class="dropdown">
+                                                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                                                                  <ul class="dropdown-menu">
+                                                                              <li><a href="#">Action</a></li>
+                                                                              <li><a href="#">Another action</a></li>
+                                                                              <li><a href="#">Something else here</a></li>
+                                                                              <li role="separator" class="divider"></li>
+                                                                              <li class="dropdown-header">Nav header</li>
+                                                                              <li><a href="#">Separated link</a></li>
+                                                                              <li><a href="#">One more separated link</a></li>
+                                                                      </ul>
+                                                          </li>
+                                                  </ul>
+                                          </div>
+                                </nav>
+                            </div>
+               
+
+
+                <hr class="featurette-divider">
+                    <div id="wrap" class="container">
+                            <div class="row featurette">
+                            <form class="form-signin span8" id="ReruestInfo" method="post" action="">
+                                {% csrf_token %}
+                               {% for field in list_res %}
+                                {{ field.errors }}<br/>
+                                    <!--{{ field.label }}-->
+                                <a href="/project_1/detail/{{ field.OpenID }}"><div>
+                                  
+                                    <div class="col-md-7 col-xs-8 ">
+                                            <h2 class="featurette-heading"><b>信息</b></h2>
+                                            <p class="lead" >
+                                                  <div class ="row featurette">
+                                                        <p>
+                                                                <div class="col-xs-6 col-md-4 font">{{ field.name }}</div>
+                                                                <div class="col-xs-4 col-md-4 font">{{ field.education }}</div>
+                                                                <div class="col-xs-2 col-md-4 font"> {{ field.height }}</div>
+                                                      </p> 
+                                                  </div>
+                                                  <div class ="row featurette">
+                                                        <br>
+                                                        <div class="col-md-6 font">{{ she_he.hometown }}</div>
+                                                </div>
+                                            </p>
+                                    </div>
+                                    <div class="col-md-5  col-xs-4">
+                                    <br>
+                                            <img src="/static/img/{{ field.img }}" class="img-responsive" alt="Cinque Terre" width="304" height="236" type="center">
+                                    </div>
+                            </div>
+                            </a>
+                            
+                            <br>
+                            
+
+                            <br>
+                                                  <!-- <br /> -->
+                             {% endfor %}
+                     </div>       
+                           
+
+
+
+
+
+
+
+                            <br>
+                            
+
+                            <br>
+              
+        <div style="text-align:center;">
+            <nav>
+                  <ul class="pager">
+                  <li><a href="#">Previous</a></li>
+                  <li><a href="#">Next</a></li>
+                  </ul>
+            </nav>
+        </div>
+   
+
+
+        <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+        <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

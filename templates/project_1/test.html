@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load staticfiles %} <!-- load static file path -->
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+	<title>test</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/test1.css" />
+	<link rel="stylesheet" type="text/css" href="{% static "css/test2.css" %}" />
+	<script type="text/javascript" src="/static/js/test.js"></script>
+</head>
+<body>
+	<h1>RUN ok</h1>
+
+	<a href="http://www.bilibili.com"><img src="/static/img/1.jpg" /></a>
+	<br />
+	or
+	<a href="http://www.bilibili.com"><img src="{% static "img/1.jpg" %}"></a>
+	<br />
+	<p class="font1">test css</p>
+
+	<input type="text" id="text" />
+	<input type="button" onclick="tesing()" value="click">
+</body>
+</html>

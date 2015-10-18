@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load staticfiles %} <!-- load static file path -->
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+	<title>test2</title>
+</head>
+<body>
+	<h1>data</h1>
+	<!-- 
+	{% if female %}
+	<ul>
+		{% for obj in female %}
+		<li>{{  obj.name }}: age {{ obj.age }}  education {{ obj.education }}</li>
+		{% endfor %}
+	</ul>
+	{% else %}
+		<strong>female error </strong>
+	{% endif %}
+
+	{% if man %}
+	<ul>
+		{% for obj in man %}
+		<li>{{  obj.name }}: Occupation {{ obj.Occupation }} Height {{ obj.height }}</li>
+		{% endfor %}
+	</ul>
+	{% else %}
+		<strong>man error </strong>
+	{% endif %}
+	-->
+
+
+	{% if userProfile %}
+	<ul>
+		{% for obj in userProfile %}
+		<li>{{  obj.name }}: Occupation {{ obj.Occupation }} Height {{ obj.height }}</li>
+		{% endfor %}
+	</ul>
+	{% else %}
+		<strong>userProfile error </strong>
+	{% endif %}
+
+</body>
+</html>

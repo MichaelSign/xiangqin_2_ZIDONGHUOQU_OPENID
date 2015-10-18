@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../../favicon.ico">
+        <title>meethere缘分来了</title>
+        <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+        <link href="navbar-static-top.css" rel="stylesheet">
+        <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+        <style>
+            h1 {text-align:center;}
+            p.font{
+              font-size: 20px;
+              font-family: "Courier New", Courier, monospace;
+              background-image: url(/static/img/abj2.jpg);
+              background-size: cover;
+            }
+            div.font{
+              font-size: 20px;
+            }
+            #wrap {
+              min-height: 100%;
+              background-color: none;
+              height: auto !important;
+              margin: 0px auto -309px;
+              padding: 0px 0px 309px;
+            }
+           body
+            {
+                background-image: url(/static/img/abj2.jpg);
+              
+                background-size: cover;
+                background-position: center;
+            }
+        </style>
+    </head>
+    <body>
+    <div class="container">   
+            <h1><b style="color:#FF0000">meethere缘分来了</b></h1>
+                  <hr class="featurette-divider">
+                        <form class="form-signin span8" id="detail" method="post" action="">
+                                  {% csrf_token %}
+                              <div class="row featurette">
+                                    <div class="col-xs-12">
+                                              <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image" src="/static/img/{{ she_he.img }}" >
+                                    </div>
+                             </div>
+                            <div class="row featurette">
+                                                <h2 class="featurette-heading">Oh yeah, it's that good. 
+                                                          <span class="text-muted">See for yourself.</span></h2>
+                                                <p class="lead" >
+                                                            <div class ="row featurette">
+                                                                        <div class="col-xs-6">
+                                                                                  <h3>姓 名: </h3></div>
+                                                                        <div class="col-xs-5 ">
+                                                                                    <h3>{{ she_he.name }}<h3>
+                                                                        </div>
+                                                            </div>
+                                                            <div class ="row featurette">
+                                                                          <div class="col-xs-6">
+                                                                                    <h3>年 龄: </h3></div>
+                                                                          <div class="col-xs-5">
+                                                                                  <h3>{{ she_he.age }}</h3>
+                                                                          </div>
+                                                            </div>
+                                                            <div class ="row featurette">
+                                                                          <div class="col-xs-6">
+                                                                                    <h3>学 历: </h3></div>
+                                                                          <div class="col-xs-5">
+                                                                                    <h3>{{ she_he.education }}</h3>
+                                                                          </div>
+                                                            </div>
+                                                            <div class ="row featurette">
+                                                                            <div class="col-xs-6">
+                                                                                      <h3>身 高: </h3></div>
+                                                                            <div class="col-xs-5">
+                                                                                        <h3> {{ she_he.height }}</h3>
+                                                                            </div>
+                                                            </div>
+                                                           <div class ="row featurette">
+                                                                            <div class="col-xs-6">
+                                                                                      <h3>住 宅: </h3></div>
+                                                                            <div class="col-xs-5">
+                                                                                        <h3> {{ she_he.hometown }}</h3>
+                                                                             </div>
+                                                            </div>
+                                                            <div class ="row featurette">
+                                                                      <div class="col-xs-12"><h3>个人信息:</h3></div>
+                                                              </div>
+                                                              <div class ="row featurette">
+                                                                      <p class="navbar-text  font col-xs-12" >
+                                                                            个人，或者称个体，一般指一个人或是一个群体中的特定的主体。一个人、个体（跟“集体”相对）个人利益服从集体利益，集体领导同个人负责相结合。自称我（在正式场合发表意见时...
+                                                                      </p>
+                                                            </div>
+                                                  </p>
+                              </div>
+                          </form>
+                   </div>  
+        <div style="text-align:center;">
+               <button type="button" class="btn btn-primary">拒绝</button>
+               <button type="button" class="btn btn-success">确定</button>
+        </div>
+
+        <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+        <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+        </body>
+</html>
