@@ -87,9 +87,9 @@ def index(request):
 		elif Event == 'subscribe':# 关注公众号事件
 			if dict_str['EventKey'] and dict_str['Ticket']:# 通过扫描二维码进行关注
 				qrcode_num = dict_str['EventKey'].split('_')[1]
-				send_text(dict_str['FromUserName'], "Thanks for your attention" + str(qrcode_num))
+				send_text(dict_str['FromUserName'], "感谢您的关注！" + str(qrcode_num))
 			else:
-				send_text(dict_str['FromUserName'], "Thanks for your attentiosn")
+				send_text(dict_str['FromUserName'], "感谢您的关注！")
 			return HttpResponse('')
 		elif Event == 'SCAN':
 			send_text(dict_str['FromUserName'], "qrcode is " + str(dict_str['EventKey']))
@@ -106,17 +106,34 @@ def create_menu(request):
     print 'create_menu'
     menu_data = {}
     button1 = {}
-    button1['name'] = '1'
+    button1['name'] = '1个人信息'
     button1['type'] = 'view'
-    button1['url']='https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + WEIXIN_APPID + '&redirect_uri=http://101.200.205.241/project_1/test/&response_type=code&scope=snsapi_userinfo&state=snsapi_userinfo#wechat_redirect'
+    #button1['url']='https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + WEIXIN_APPID + '&redirect_uri=http://101.200.205.241/project_1/test/&response_type=code&scope=snsapi_userinfo&state=snsapi_userinfo#wechat_redirect'
+    button1['url']='https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + WEIXIN_APPID + '&redirect_uri=http://101.200.205.241/project_1/user_info/&response_type=code&scope=snsapi_userinfo&state=snsapi_userinfo#wechat_redirect'
+
+
     button2 = {}
-    button2['name'] = '2'
+    button2['name'] = 'test2.html'
     button2['type'] = 'view'
     button2['url'] = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+WEIXIN_APPID + '&redirect_uri=http://101.200.205.241/project_1/test2/&response_type=code&scope=snsapi_userinfo&state=snsapi_userinfo#wechat_redirect'
     button3 = {}
     button3['name'] = '3'
-    button3['type'] = 'view'
-    button3['url'] = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+WEIXIN_APPID + '&redirect_uri=http://101.200.205.241/project_1/test3/&response_type=code&scope=snsapi_userinfo&state=snsapi_userinfo#wechat_redirect'
+    #button3['type'] = 'view'
+    #button3['url'] = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+WEIXIN_APPID + '&redirect_uri=http://101.200.205.241/project_1/test3/&response_type=code&scope=snsapi_userinfo&state=snsapi_userinfo#wechat_redirect'
+    button31 = {}
+    button31['name'] = 'test1'
+    button31['type'] = 'view'
+    button31['url'] = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + WEIXIN_APPID + '&redirect_uri=http://101.200.205.241/project_1/test/&response_type=code&scope=snsapi_userinfo&state=snsapi_userinfo#wechat_redirect'
+    button32 = {}
+    button32['name'] = 'test3'
+    button32['type'] = 'view'
+    button32['url'] = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+WEIXIN_APPID + '&redirect_uri=http://101.200.205.241/project_1/test3/&response_type=code&scope=snsapi_userinfo&state=snsapi_userinfo#wechat_redirect'
+    button33 = {}
+    button33['name'] = '我的二维码'
+    button33['type'] = 'view'
+    button33['url'] = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+WEIXIN_APPID + '&redirect_uri=http://101.200.205.241/project_1/qrcode/?num=1/&response_type=code&scope=snsapi_userinfo&state=snsapi_userinfo#wechat_redirect'
+    button3['sub_button'] = [button31, button32, button33]
+
     menu_data['button'] = [button1, button2, button3]
     
     post_url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='+get_access_token()
@@ -131,8 +148,35 @@ def create_menu(request):
     	return HttpResponse(WEIXIN_ACCESS_TOKEN+'create menu err:' + response['errmsg'])
     	#return HttpResponse('create menu err:' + response['errmsg'])
 
-#------------------------------
+def user_info(request):
+    code = request.GET.get('code', '')
+    if code == '':
+        return HttpResponse('请您先授权')
+    scope = request.GET.get('scope', None)
+    
+    url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='+WEIXIN_APPID+'&secret='+WEIXIN_APPSECRET+'&code='+code+'&grant_type=authorization_code'
+    resp, content = my_get(url)
+    dict_user = parse_Json2Dict(content)
+    print scope
+    #if state == 'snsapi_base':
+       # return render(request, 'user_info.html', dict_user)
+    #if state == 'snsapi_userinfo':
+    url = 'https://api.weixin.qq.com/sns/userinfo?access_token='+dict_user['access_token']+'&openid='+dict_user['openid']+'&lang=zh_CN'
+    res, content = my_get(url)
+    dict_user2 = parse_Json2Dict(content)
+    dict_user.update(dict_user2)
+    return render(request, 'project_1/user_info.html', dict_user)
 
+    #return HttpResponse('err: state')
+
+def qrcode(request):
+    value_number = request.GET.get('num', None)
+    if not value_number:
+        return HttpResponse('<h1>你需要在网址的后面加上num参数。如：...?num=1</h1>')
+    data = {"action_name": "QR_LIMIT_SCENE", "action_info": {"scene": {"scene_id": value_number}}}
+    my_dict = my_create_qrcode(data)
+    my_dict['num'] = value_number
+    return render(request, 'project_1/qrcode.html', my_dict)
 
 # Create your views here.
 
@@ -383,3 +427,7 @@ def detail(request,detail_slug):
     except UserProfile.DoseNotExist:
         pass
     return render(request,'project_1/detail.html',context_dict)
+
+
+    #---------------------以示清晰------------------
+

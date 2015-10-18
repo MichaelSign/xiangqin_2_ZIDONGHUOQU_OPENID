@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>user info</title>
+</head>
+
+<body>
+    <h1>用户信息</h1>
+
+    {% if headimgurl %}
+    <img border="0" src="{{ headimgurl }}" alt="headimg" /><br />
+    {% endif %}
+
+    {% if openid %}
+    <strong>open_id: </strong>{{ openid }}<br />
+    {% endif %}
+
+    {% if access_token %}
+    <strong>access_token: </strong>{{ access_token }}<br />
+    {% endif %}
+    
+    {% if refresh_token %}
+    <strong>refresh_token: </strong>{{ refresh_token }}<br />
+    {% endif %}
+
+    {% if nickname  %}
+    <strong>nickname : </strong>{{ nickname  }}<br />
+    {% endif %}
+
+    {% if sex %}
+    <strong>sex: </strong>{% if sex == 1 %}男{% else %}女{% endif %}<br />
+    {% endif %}
+
+    {% if province %}
+    <strong>province: </strong>{{ province }}<br />
+    {% endif %}
+
+    {% if city %}
+    <strong>city: </strong>{{ city }}<br />
+    {% endif %}
+
+    {% if country %}
+    <strong>country: </strong>{{ country }}<br />
+    {% endif %}
+
+    {% if privilege %}
+    <strong>privilege: </strong><ul>
+            {% for mem in privilege %}
+            <li>{{ mem }}</li>
+            {% endfor %}
+        </ul><br />
+    {% endif %}
+
+    {% if unionid %}
+    <strong>unionid: </strong>{{ unionid }}<br />
+    {% endif %}
+
+    
+</body>
+</html>

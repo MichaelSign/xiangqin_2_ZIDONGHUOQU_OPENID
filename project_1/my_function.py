@@ -77,3 +77,64 @@ def get_access_token():
 	else:
 		print "old access_token ->> " + project_1.config.WEIXIN_ACCESS_TOKEN + "---" + str(project_1.config.WEIXIN_ACCESS_TOKEN_LASTTIME) + "---" + str(project_1.config.WEIXIN_ACCESS_TOKEN_EXPIRES_IN)
 		return project_1.config.WEIXIN_ACCESS_TOKEN
+
+def get_user_info(openid):
+    ACCESS_TOKEN = get_access_token()
+    resp, content = my_get('https://api.weixin.qq.com/cgi-bin/user/info?access_token='+ACCESS_TOKEN+'&openid='+openid+'&lang=zh_CN')
+    return parse_Json2Dict(content)
+
+def my_create_menu(menu_data):
+    ACCESS_TOKEN = get_access_token()
+    post_url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' + ACCESS_TOKEN
+    post_data = parse_Dict2Json(menu_data)
+    resp, content = my_post(post_url, post_data)
+    return parse_Json2Dict(content)
+
+def my_create_qrcode(data):
+    ACCESS_TOKEN = get_access_token()
+    post_url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' + ACCESS_TOKEN
+    post_data = parse_Dict2Json(data)
+    resp, content = my_post(post_url, post_data)
+    return parse_Json2Dict(content)
+
+def send_text(touser, content):
+    ACCESS_TOKEN = get_access_token()
+    post_url = 'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=' + ACCESS_TOKEN
+    post_dict = {}
+    post_dict['touser'] = touser
+    post_dict['msgtype'] = "text"
+    text_dict = {}
+    text_dict['content'] = content
+    post_dict['text'] = text_dict
+    post_data = parse_Dict2Json(post_dict)
+    my_post(post_url, post_data)
+
+def create_timestamp():
+    return int(time.time())
+
+def create_nonce_str():
+    return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(15))
+
+# 获取访问者的真实IP地址
+def get_user_real_ip(request):
+    if request.META.has_key('HTTP_X_REAL_IP'):  
+        return request.META['HTTP_X_REAL_IP']  
+    else:  
+        return request.META['REMOTE_ADDR']  
+
+def get_jsapi_signature(noncestr, timestamp, url):
+    jsapi_ticket = get_jsapi_ticket()
+    data = {
+        'jsapi_ticket': jsapi_ticket,
+        'noncestr': noncestr,
+        'timestamp': timestamp,
+        'url': url,
+    }
+    keys = data.keys()
+    keys.sort()
+    data_str = '&'.join(['%s=%s' % (key, data[key]) for key in keys])
+    signature = hashlib.sha1(data_str.encode('utf-8')).hexdigest()
+    return signature
+
+def create_out_trade_no():
+    return str(int(time.time())) + random.randint(10000, 99999)
