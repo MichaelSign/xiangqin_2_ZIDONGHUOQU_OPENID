@@ -106,7 +106,7 @@ def create_menu(request):
     print 'create_menu'
     menu_data = {}
     button1 = {}
-    button1['name'] = '1个人信息'
+    button1['name'] = '我的基本信息'
     button1['type'] = 'view'
     #button1['url']='https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + WEIXIN_APPID + '&redirect_uri=http://101.200.205.241/project_1/test/&response_type=code&scope=snsapi_userinfo&state=snsapi_userinfo#wechat_redirect'
     button1['url']='https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + WEIXIN_APPID + '&redirect_uri=http://101.200.205.241/project_1/user_info/&response_type=code&scope=snsapi_userinfo&state=snsapi_userinfo#wechat_redirect'
@@ -218,33 +218,71 @@ def test3(request) :
 '''
 
 def test3(request) :
-	if request.method == 'POST' :
-		userform = Register(request.POST)
-		#print request.POST
-		if userform.is_valid() :
-			userform.save()
+    if request.method == 'POST' :
+        po = request.POST.copy()
+
+         #------------------------------------------------------
+        code = request.GET.get('code', '')
+        if code == '':
+           return HttpResponse('请您先授权')
+        scope = request.GET.get('scope', None)
+
+        url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='+WEIXIN_APPID+'&secret='+WEIXIN_APPSECRET+'&code='+code+'&grant_type=authorization_code'
+        resp, content = my_get(url)
+        dict_user = parse_Json2Dict(content)
+        print scope
+            #if state == 'snsapi_base':
+               # return render(request, 'user_info.html', dict_user)
+            #if state == 'snsapi_userinfo':
+        url = 'https://api.weixin.qq.com/sns/userinfo?access_token='+dict_user['access_token']+'&openid='+dict_user['openid']+'&lang=zh_CN'
+        res, content = my_get(url)
+        dict_user2 = parse_Json2Dict(content)
+        dict_user.update(dict_user2)
+        request.session['OpenID'] = dict_user['openid']
+
+        #----------------------------------------------
+
+        po['OpenID'] = dict_user['openid']
+        userform = Register(po)
+    
+        print request.POST
+        #print request.POST
+        if userform.is_valid() :
+            userform.save()
 #------------------------------------------------------------------------------
-			request.session['OpenID'] = request.POST.get('OpenID')
+            
+            #request.session['昵称'] = dict_user['nickname']
+            #request.session['性别'] = dict_user['sex']
+            #request.session['省份'] = dict_user['province']
+            #request.session['城市'] = dict_user['city']
+           # request.session['OpenID'] = request.POST.get('OpenID')
 #------------------------------------------------------------------------------
 
-			#print userform.cleaned_data
-			#return render(request,'project_1/test.html')
-			#return HttpResponseRedirect('project_1/requestInfo.html')
-			#return render_to_response('project_1/requestInfo.html')
-			#return render(request,'project_1/requestInfo.html')
-			#return HttpResponseRedirect()
-			return render(request,'project_1/requestInfo.html',{'requestform':RequestForm()})
-		else :
-			print userform.errors
-	else :
-		userform = Register()
-	return render(request,'project_1/test3.html', {'userform' : userform})
+            #print userform.cleaned_data
+            #return render(request,'project_1/test.html')
+            #return HttpResponseRedirect('project_1/requestInfo.html')
+            #return render_to_response('project_1/requestInfo.html')
+            #return render(request,'project_1/requestInfo.html')
+            #return HttpResponseRedirect()
+            return render(request,'project_1/requestInfo.html',{'requestform':RequestForm()})
+        else :
+            print userform.errors
+    else :
+        userform = Register(initial = {'OpenID':'OpenID'})
+    return render(request,'project_1/test3.html', {'userform' : userform})
 
 
 Mes = "%s;%s;%s;%s;%s;%s;%s;%s"
 
 def requestInfo(request):
-    if request.method == 'POST' :
+    #-------------------------------------
+    print request.session.get('OpenID')
+    #print request.session.get('昵称')
+    #print request.session.get('性别') 
+    #print request.session.get('省份')
+    #print request.session.get('城市') 
+    #--------------------------------------
+    if request.method == 'POST':
         requestform = RequestForm(request.POST)
         if requestform.is_valid():
             #get infomation from POST

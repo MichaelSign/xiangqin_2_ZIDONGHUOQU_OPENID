@@ -103,3 +103,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # access  pages without login will  go to /project_1/index/ page
 LOGIN_URL = '/project_1/index/'
 
+STATIC_ROOT='/var/static'

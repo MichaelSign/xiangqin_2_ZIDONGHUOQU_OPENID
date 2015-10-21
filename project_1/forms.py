@@ -67,7 +67,7 @@ class Register(forms.ModelForm) :
 	views = forms.IntegerField(widget=forms.HiddenInput(),required=False,initial=0)
 	synopsis = forms.CharField(max_length=128,widget=forms.HiddenInput(),required=False)
 
-	OpenID = forms.CharField(max_length = 128)
+	OpenID = forms.CharField(max_length = 128,widget=forms.HiddenInput(),required=False)
 
 	class Meta:
 		model=UserProfile

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-{% load staticfiles %}
-<html lang="zh-CN">
-    <head>
+{% load staticfiles %} 
+<html  lang="zh-CN">
+<head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +12,7 @@
         <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
         <link href="navbar-static-top.css" rel="stylesheet">
         <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
-        <style>
+    <style type="text/css">
                 #wrap {
                       min-height: 100%;
                       background-color: none;
@@ -24,6 +24,13 @@
                   
                     text-align:center;
                     font-size: 50px;
+                  }
+                  h3{
+                    text-align: center;
+                  }
+                  div.center
+                  {
+                    text-align: center;
                   }
                   p.font{
                       font-size: 30px;
@@ -56,17 +63,74 @@
                       background-color: #FF0000;
 
                   }
+    </style>
+   <script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
 
-        </style>
-    </head>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(window).scroll(function () {
+                var scrollTop = $(this).scrollTop();
+                var scrollHeight = $(document).height();
+                var windowHeight = $(this).height();
+                if (scrollTop + windowHeight == scrollHeight) {
+                    /*$(function(){
+                        $('#more').more({'address' :'/project_1/more/'});
+                    });*/
+                     //alert("ok1");
+                    /*
+                     $.ajax({
+                        type : "POST",
+                        url: "/project_1/more/",
+                        success : function(response){
+                            alert(response)
+                            $('#result').html(response);
+                        }
+                     });
+                    */
+                     //alert("ok");
+                     $.getJSON('/project_1/more',function(ret){
+                            for(var i = ret.length-1; i>= 0; i--){
+                                $('#result').append( '<a href="/project_1/detail/'+ ret[i].OpenID+' " ><div>'+
+                                    '<div class="col-md-7 col-xs-8 "> ' +
+                                            '<h2 class="featurette-heading"><b>信息</b></h2> ' +
+                                            '<p class="lead" > '+
+                                                  '<div class ="row featurette">'+
+                                                        '<p>' +
+                                                                '<div class="col-xs-6 col-md-4 font">'+ret[i].name+'</div>'+
+                                                                '<div class="col-xs-4 col-md-4 font">'+ret[i].education+'</div>'+
+                                                                '<div class="col-xs-2 col-md-4 font">' + ret[i].height +'</div>'+
+                                                      '</p> '+
+                                                  '</div>'+
+                                                  '<div class ="row featurette">'+
+                                                        '<br>'+
+                                                        '<div class="col-md-6 font">'+ret[i].hometown+'</div>'+
+                                                '</div>'+
+                                            '</p>'+
+                                    '</div>'+
+                                    '<div class="col-md-5  col-xs-4">'+
+                                    '<br>'+
+                                            '<img src="/static/img/'+ret[i].img+'" class="img-responsive" alt="Cinque Terre" width="304" height="236" type="center">'+
+                                    '</div>'+
+                            '</div>'+
+                            '</a>'+
+                            '<br>'+
+                            '<br>');
+                            }
+                     });
+                }
+            });
+        })
+    </script>
+</head>
+<body>
 
-    <body>
-                      <img src="/static/images/quit.jpg" class="img-responsive" alt="" width=50px>
+          
                      <h1><b style="color:#FF0000">meethere</b>
                             <i>
-                                     <sub>goodlack</sub>
+                                     <sub>goodluck</sub>
                             </i>
                     </h1>
+         
                     <br>
                     <br>
                       <div class="container">
@@ -84,14 +148,14 @@
                                           <div id="navbar" class="navbar-collapse collapse">
                                                   <ul class="nav navbar-nav">
                                                           <li class="active"><a href="http://www.baidu.com">百度</a></li>
-                                                         <li><a href="http://www.itcast.com">itcast</a></li>
-                                                          <li><a href="http://www.sina.com">sina</a></li>
+                                                         <li><a href="#">关注</a></li>
+                                                          <li><a href="http://www.sina.com">被关注</a></li>
                                                           <li class="dropdown">
-                                                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                                                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">个人爱好团 <span class="caret"></span></a>
                                                                   <ul class="dropdown-menu">
-                                                                              <li><a href="#">Action</a></li>
-                                                                              <li><a href="#">Another action</a></li>
-                                                                              <li><a href="#">Something else here</a></li>
+                                                                              <li><a href="http://www.iqiyi.com">看电影</a></li>
+                                                                              <li><a href="http://www.nba.com">篮球</a></li>
+                                                                              <li><a href="#">英雄联盟</a></li>
                                                                               <li role="separator" class="divider"></li>
                                                                               <li class="dropdown-header">Nav header</li>
                                                                               <li><a href="#">Separated link</a></li>
@@ -116,18 +180,18 @@
                                 <a href="/project_1/detail/{{ field.OpenID }}"><div>
                                   
                                     <div class="col-md-7 col-xs-8 ">
-                                            <h2 class="featurette-heading"><b>信息</b></h2>
+                                            <h3 class="featurette-heading"><b>{{ field.name }}</b></h3>
                                             <p class="lead" >
-                                                  <div class ="row featurette">
+                                                  <div class =" center row featurette">
                                                         <p>
-                                                                <div class="col-xs-6 col-md-4 font">{{ field.name }}</div>
+                                                                <div class="col-xs-6 col-md-4 font">{{ field.age }}</div>
                                                                 <div class="col-xs-4 col-md-4 font">{{ field.education }}</div>
-                                                                <div class="col-xs-2 col-md-4 font"> {{ field.height }}</div>
+                                                                <div class="col-xs-6 col-md-4 font"> {{ field.height }}</div>
                                                       </p> 
                                                   </div>
                                                   <div class ="row featurette">
                                                         <br>
-                                                        <div class="col-md-6 font">{{ she_he.hometown }}</div>
+                                                        <div class="center col-md-6 font">{{ field.hometown}} </div>
                                                 </div>
                                             </p>
                                     </div>
@@ -144,8 +208,10 @@
                             <br>
                                                   <!-- <br /> -->
                              {% endfor %}
-                     </div>       
-                           
+
+        <div>
+            <div id="result"></div>
+        </div>
 
 
 
@@ -153,6 +219,7 @@
 
 
 
+<!--
                             <br>
                             
 
@@ -166,12 +233,12 @@
                   </ul>
             </nav>
         </div>
-   
+   -->
 
 
         <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
         <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-  </body>
+</body>
 </html>

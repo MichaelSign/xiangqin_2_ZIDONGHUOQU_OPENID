@@ -1,51 +1,51 @@
 <!DOCTYPE html>
- {% load staticfiles %}
+{% load staticfiles %}
 <html lang="zh-CN">
-<head>
-	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
-	<title>MeetHere缘分来了</title>
-	<style type="text/css">
-		.register{
-			color:#E15F63;
-			font-size:15px;
-		}
-		.BB{
-			color:#FF0033;
-			font-size:15px;
-		}
-	</style>
-	<script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('#id_name').click(function(){
-				//alert("ok");
-				//$('.register').css("color" ,"#FF0033");
-				//$("#id_name").prev().removeClass().addClass("BB")
-			})
-		})
-	</script>
- <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
- <link href="navbar-static-top.css" rel="stylesheet">
- <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
- <style>
-#sub{width:100px;height:35px;line-height:35px;background:transparent url(/static/img/bg2.jpg) no-repeat;border:none;}
-#center{text-align:center;}
-body{
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../../favicon.ico">
+        <title>meethere缘分来了</title>
+        <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+        <link href="navbar-static-top.css" rel="stylesheet">
+        <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+        <style>
+        #sub{width:100px;height:35px;line-height:35px;background:transparent url(/static/img/bg2.jpg) no-repeat;border:none;}
+        #center{text-align:center;}
+            h1 {text-align:center;}
+            p.font{
+              font-size: 20px;
+              font-family: "Courier New", Courier, monospace;
               background-image: url(/static/img/abj2.jpg);
-              background-size:cover;
-              background-color: #FFB5B5; 
-         }
-
-</style>	
-</head>
-
-<body> 
-<div class="container">
-   <a href="/project_1/test/"><h1><b style= "color : #FF0033">meethere缘分来了</b></h1></a>
-     <hr class="featurette-divider">
-
-	<script type="text/javascript" src="/static/js/test.js"></script> 
-	<form class="form-horizantal" id="Register" method="post" action="">
+              background-size: cover;
+            }
+            div.font{
+              font-size: 20px;
+            }
+            #wrap {
+              min-height: 100%;
+              background-color: none;
+              height: auto !important;
+              margin: 0px auto -309px;
+              padding: 0px 0px 309px;
+            }
+           body
+            {
+                background-image: url(/static/img/abj2.jpg);
+              
+                background-size: cover;
+                background-position: center;
+            }
+        </style>
+    </head>
+    <body>
+    <div class="container">   
+            <h1><b style="color:#FF0000">meethere缘分来了</b></h1>
+                  <hr class="featurette-divider">
+                       	<form class="form-horizantal" id="Register" method="post" action="">
 
 		{% csrf_token %}
 		{% for hidden in userform.hidden_fields %}
@@ -67,52 +67,17 @@ body{
         		<input type="submit"  value="下一步" id="sub"> 
         		<!-- <a href="/project_1/test/"><input type="button" id="sub" value="下一步" /></a> -->
         		<br />
-        		</div>
- 	      		
-              </form>
-              <br />
-              <br />
-  
-</div>
+ 	              	           
+    </div>  
+    <div id="center">
+    <p >本网站meethere缘分来了<a href="/project_1/test/">www.meethere.com</a>版权所有。</p>
+    </div>
+     
 
-	<!--
-	<form id="register" method="post" action="">
-
-		{% csrf_token %}
-		{% for hidden in form.hidden_fields %}
-			{{ hidden }}
-		{% endfor %}
-		 
-		{% for field in userform.visible_fields %}
-    		{{ field.errors }}<br/>
-    		{{ field.label }}
-    		{{ field }}
-    		<br />
-		{% endfor %}
-
-		<!-- {% csrf_token %}
-		{{ form.as_p }}
-		<input type="submit" value="Submit" />
-		-->
-		<!-- 
-		{% for field in form %}
-	            	{{ field.errors }}<br/>
-	            	<span class="register">
-	            	{{ field.help_text}}
-	            	</span>
-	            	{{ field }}  
-	            	{% endfor %}
-	            	- ->
-
-		<input type="submit" value="Submit" />
-	</form> -->
-
-<div id="center">
-<p >本网站meethere缘分来了<a href="/project_1/test/">www.meethere.com</a>版权所有。</p>
-</div>
-<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-</body>
+        <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+        <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    
+        <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+        </body>
 </html>
+
